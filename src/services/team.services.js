@@ -1,7 +1,10 @@
 import config from "../config";
+import { helperConstants } from "../constants";
 
 export const teamServices = {
-    register
+    register,
+    login,
+    logout
 };
 
 function register(teamName, password){
@@ -26,19 +29,23 @@ function login(teamName, password){
         .then(handleResponse)
         .then((result) => {
             if(result && result.token){
-
+                localStorage.setItem(helperConstants.LOCAL_STORAGE_KEY, result);
+                return result;
             }
-            
+            return Promise.reject(result);
         })
 }
 
+function logout(){
+    localStorage.removeItem(helperConstants.LOCAL_STORAGE_KEY);
+}
+
 function handleResponse(response){
-    response.text().then((text) => {
+    return response.text().then((text) => {
         const result = text && JSON.parse(text);
         if(!response.ok){
             return Promise.reject(result);
         }
-
         return result;
     })
 }

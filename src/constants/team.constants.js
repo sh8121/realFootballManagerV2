@@ -8,5 +8,6 @@ export const teamConstants = {
         REQUEST: "TEAM_LOGIN_REQUEST",
         SUCCESS: "TEAM_LOGIN_SUCCESS",
         FAILURE: "TEAM_LOGIN_FAILURE"
-    }
+    },
+    LOGOUT: "TEAM_LOGOUT"
 }
