@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
 const bearerToken = require("express-bearer-token");
 
 const config = require("./config");
@@ -24,9 +23,4 @@ app.listen(port, () => {
     console.log(`Express listening on port ${port}`);
 });
 
-mongoose.connect(config.mongodbUri);
-const db = mongoose.connection;
-db.on("error", console.error);
-db.once("open", () => {
-    console.log("Connected to mongodb server");
-});
+require("./utils/dbConnection");

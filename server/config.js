@@ -1,4 +1,9 @@
 module.exports = {
-    mongodbUri: "mongodb://localhost:27017/realFootballManager",
+    mysqlConfig: {
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "realfootballmanager"
+    },
     secret: "adsgadsfe12345!@("
 }
