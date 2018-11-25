@@ -5,7 +5,7 @@ export const teamReducers = {
     registration
 };
 
-let team = localStorage.getItem(helperConstants.LOCAL_STORAGE_KEY);
+let team = JSON.parse(localStorage.getItem(helperConstants.LOCAL_STORAGE_KEY));
 let initialState = team ? {loggedIn: true, team} : {};
 
 function authentication(state = initialState, action){

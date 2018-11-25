@@ -28,8 +28,8 @@ function login(teamName, password){
     return fetch(`${config.apiUrl}/api/auth/login`, requestOptions)
         .then(handleResponse)
         .then((result) => {
-            if(result && result.token){
-                localStorage.setItem(helperConstants.LOCAL_STORAGE_KEY, result);
+            if(result && result.team){
+                localStorage.setItem(helperConstants.LOCAL_STORAGE_KEY, JSON.stringify(result.team));
                 return result;
             }
             return Promise.reject(result);

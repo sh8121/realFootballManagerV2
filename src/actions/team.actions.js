@@ -1,5 +1,7 @@
 import { teamConstants } from "../constants";
 import { teamServices } from "../services";
+import { alertActions } from "./alert.actions";
+import { history } from "../helpers/history";
 
 export const teamActions = {
     register,
@@ -13,8 +15,12 @@ function register(teamName, password){
         teamServices.register(teamName, password)
             .then((result) => {
                 dispatch(success());
+                history.push("/login");
+                dispatch(alertActions.success(result.message))
+
             },(error) => {
                 dispatch(failure());
+                dispatch(alertActions.failure(error.message));
             })
     };
 
@@ -28,9 +34,12 @@ function login(teamName, password){
         dispatch(request());
         teamServices.login(teamName, password)
             .then((result) => {
-                dispatch(success(result));
+                dispatch(success(result.team));
+                history.push("/");
+                dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                dispatch(alertActions.failure(error.message));
             })
     }
 

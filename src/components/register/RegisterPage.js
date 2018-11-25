@@ -1,20 +1,18 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 import { teamActions } from "../../actions";
 
-class LoginPage extends Component{
+class RegisterPage extends Component{
     constructor(props){
         super(props);
-
-        this.props.dispatch(teamActions.logout());
 
         this.state = {
             teamName: "",
             password: "",
             submitted: false
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,14 +20,14 @@ class LoginPage extends Component{
 
     handleChange(e){
         const { name, value } = e.target;
-
         this.setState({
-            [name]: value
-        })
+           [name]: value
+        });
     }
 
     handleSubmit(e){
         e.preventDefault();
+
         this.setState({
             submitted: true
         });
@@ -38,35 +36,34 @@ class LoginPage extends Component{
         const { dispatch } = this.props;
 
         if(teamName && password){
-            dispatch(teamActions.login(teamName, password));
+            dispatch(teamActions.register(teamName, password));
         }
     }
 
     render(){
+        const { registering } = this.props;
         const { teamName, password, submitted } = this.state;
-        const { loggingIn } = this.props;
-
         return(
             <div>
-                <h2>Login</h2>
+                <h2>Register</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="teamName">Team Name</label>
                         <input type="text" className="form-control" name="teamName" value={teamName} onChange={this.handleChange}/>
-                        { submitted && !teamName &&
-                        <small className="form-text">TeamName is required</small> }
+                        {submitted && !teamName &&
+                        <small className="form-text">TeamName is required</small>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange}/>
-                        { submitted && !password &&
+                        {submitted && !password &&
                         <small className="form-text">Password is required</small>}
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="btn btn-primary">Login</button>
-                        {loggingIn &&
+                        <button type="submit" className="btn btn-primary">Register</button>
+                        {registering &&
                         <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
-                        <Link to="/register" className="btn btn-link">Register</Link>
+                        <Link to="/" className="btn btn-link">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -75,12 +72,12 @@ class LoginPage extends Component{
 }
 
 function mapStateToProps(state){
-    const {loggingIn} = state.authentication;
+    const { registering } = state.registration;
     return {
-        loggingIn
-    }
+        registering
+    };
 }
 
-LoginPage = connect(mapStateToProps)(LoginPage);
+RegisterPage = connect(mapStateToProps)(RegisterPage);
 
-export { LoginPage };
+export { RegisterPage };
