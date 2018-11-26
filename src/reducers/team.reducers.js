@@ -20,7 +20,6 @@ function authentication(state = initialState, action){
                 team: action.team
             };
         case teamConstants.LOGIN.FAILURE:
-            return {};
         case teamConstants.LOGOUT:
             return {};
         default:
@@ -35,7 +34,6 @@ function registration(state = {}, action){
                 registering: true
             };
         case teamConstants.REGISTER.SUCCESS:
-            return {};
         case teamConstants.REGISTER.FAILURE:
             return {};
         default:

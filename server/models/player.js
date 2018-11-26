@@ -34,7 +34,7 @@ class Player{
         })
     }
 
-    static fineByTeam(teamId){
+    static findByTeam(teamId){
         return new Promise((resolve, reject) => {
             const sql = "SELECT * from players WHERE teamId=?";
             connection.query(sql, [teamId], (err, result) => {

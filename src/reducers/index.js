@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 
 import { alertReducers } from "./alert.reducers";
 import { teamReducers } from "./team.reducers";
+import { playerReducers } from "./player.reducers";
 
 const rootReducer = combineReducers({
     alert: alertReducers.alert,
     authentication: teamReducers.authentication,
-    registration: teamReducers.registration
+    registration: teamReducers.registration,
+    player: playerReducers
 });
 
 export { rootReducer };
