@@ -1,7 +1,8 @@
 const Player = require("../../../models/player");
 
 module.exports.createPlayer = (req, res) => {
-    const {name, number, position, teamId} = req.body;
+    const {name, number, position} = req.body;
+    const teamId = req.info._id;
 
     const respond = () => {
         res.json({
@@ -47,7 +48,7 @@ module.exports.findPlayerById = (req, res) => {
 }
 
 module.exports.findPlayerByTeam = (req, res) => {
-    const { teamId } = req.query;
+    const teamId = req.info._id;
 
     const respond = (players) => {
         res.json({

@@ -8,11 +8,11 @@ export const playerServices = {
     deleteP
 };
 
-function create(name, number, position, teamId){
+function create(name, number, position){
     const requestOptions = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, number, position, teamId})
+        body: JSON.stringify({name, number, position})
     };
 
     return fetch(`${config.apiUrl}/api/players`, requestOptions)
@@ -29,13 +29,13 @@ function findOneById(id){
         .then(handleResponse);
 }
 
-function findByTeam(teamId){
+function findByTeam(){
     const requestOptions = {
         method: "GET",
         headers: {"Content-Type": "application/json"}
     };
 
-    return fetch(`${config.apiUrl}/api/players?teamId=${teamId}`, requestOptions)
+    return fetch(`${config.apiUrl}/api/players`, requestOptions)
         .then(handleResponse);
 }
 

@@ -10,10 +10,10 @@ export const playerActions = {
     deleteP
 };
 
-function create(name, number, position, teamId){
+function create(name, number, position){
     return (dispatch) => {
         dispatch(request());
-        playerServices.create(name, number, position, teamId)
+        playerServices.create(name, number, position)
             .then((result) => {
                 dispatch(success());
                 dispatch(alertActions.success(result.message));
@@ -46,10 +46,10 @@ function findOneById(id){
     function failure(){return {type:playerConstants.FIND_BY_ID.FAILURE};}
 }
 
-function findByTeam(teamId){
+function findByTeam(){
     return (dispatch) => {
         dispatch(request());
-        playerServices.findByTeam(teamId)
+        playerServices.findByTeam()
             .then((result) => {
                 dispatch(success(result.players));
                 dispatch(alertActions.success(result.message));

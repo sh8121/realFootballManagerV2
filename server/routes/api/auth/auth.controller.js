@@ -45,7 +45,7 @@ module.exports.login = (req, res) => {
         return new Promise((resolve, reject) => {
             jwt.sign(
                 {
-                    _id: team._id,
+                    _id: team.id,
                     teamName: team.teamName
                 },
                 secret,
