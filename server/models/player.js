@@ -1,15 +1,6 @@
 const connection = require("../utils/dbConnection");
 
 class Player{
-    constructor(id, name, number, position, formationNumber, teamId){
-        this.id = id;
-        this.name = name;
-        this.number = number;
-        this.position = position;
-        this.formationNumber = formationNumber;
-        this.teamId = teamId;
-    }
-
     static create(name, number, position, teamId){
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO players(name, number, position, teamId) VALUES(?, ?, ?, ?)";

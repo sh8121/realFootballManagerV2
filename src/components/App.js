@@ -8,6 +8,7 @@ import {PrivateRoute} from "./common/PrivateRoute";
 import { HomePage } from "./home/HomePage";
 import { LoginPage } from "./login/LoginPage";
 import { RegisterPage } from "./register/RegisterPage";
+import { PlayerRoute } from "./player/PlayerRoute";
 
 class App extends Component {
     constructor(props){
@@ -17,9 +18,9 @@ class App extends Component {
     render(){
         const { alert } = this.props;
         return (
-            <div className="container-fluid">
+            <div className="container">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12">
                     { alert.message && (
                         alert.successful ?
                             <div className="alert alert-success">{alert.message}</div> :
@@ -27,13 +28,18 @@ class App extends Component {
                     )}
                     </div>
                 </div>
-                <Router history={history}>
-                    <div>
-                        <PrivateRoute exact path="/" component={HomePage}/>
-                        <Route path="/login" component={LoginPage}/>
-                        <Route path="/register" component={RegisterPage}/>
+                <div className="row">
+                    <div className="col-12">
+                        <Router history={history}>
+                            <div>
+                                <PrivateRoute exact path="/" component={HomePage}/>
+                                <Route path="/login" component={LoginPage}/>
+                                <Route path="/register" component={RegisterPage}/>
+                                <Route path="/players" component={PlayerRoute}/>
+                            </div>
+                        </Router>
                     </div>
-                </Router>
+                </div>
             </div>
         );
     }

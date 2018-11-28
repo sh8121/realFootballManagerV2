@@ -11,9 +11,22 @@ class HomePage extends Component{
         const { team } = this.props;
 
         return(
-            <div>
-                <h2>Hello, {team.teamName}</h2>
-                <Link to="/login" className="btn btn-link">Logout</Link>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <h2 style={{"text-align":"center"}}>Hello, {team.teamName}</h2>
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-6">
+                        <Link to="/players" className="btn btn-primary btn-block">Players</Link>
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-6">
+                        <Link to="/login" className="btn btn-link btn-block">Logout</Link>
+                    </div>
+                </div>
             </div>
         );
     }

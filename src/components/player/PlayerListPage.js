@@ -10,23 +10,52 @@ class PlayerListPage extends Component{
     }
 
     componentDidMount(){
-
+        const {dispatch} = this.props;
+        dispatch(playerActions.findByTeam());
     }
 
     render(){
+        const { finding, players } = this.props;
+
         return(
             <div>
                 <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {finding &&
+                    <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
+                    {players && players.length > 0 && players.map((player, index) => (
+                        <tr>
+                            <th scope="row">{index + 1}</th>
+                            <td>{player.name}</td>
+                            <td>{player.number}</td>
+                            <td>{player.position}</td>
+                        </tr>
+                    ))}
+                    </tbody>
                 </table>
+                <Link to="/players/create" className="btn btn-primary">Create Player</Link>
+                <Link to="/" className="btn btn-link">Go to Home</Link>
             </div>
         );
     }
 }
 
 function mapStateToProps(state){
-    const {finding, players} = state.finding;
+    const {finding, players} = state.player.finding;
     return{
         finding,
         players
     };
 }
+
+PlayerListPage = connect(mapStateToProps)(PlayerListPage);
+
+export { PlayerListPage };

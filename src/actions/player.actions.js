@@ -1,6 +1,7 @@
 import { playerConstants } from "../constants";
 import { playerServices } from "../services";
 import { alertActions } from "./alert.actions";
+import { history } from "../helpers/history";
 
 export const playerActions = {
     create,
@@ -16,9 +17,11 @@ function create(name, number, position){
         playerServices.create(name, number, position)
             .then((result) => {
                 dispatch(success());
+                history.push("/players");
                 dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                history.push("/");
                 dispatch(alertActions.failure(error.message));
             });
     }
@@ -37,6 +40,7 @@ function findOneById(id){
                 dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                history.push("/");
                 dispatch(alertActions.failure(error.message));
             });
     }
@@ -55,6 +59,7 @@ function findByTeam(){
                 dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                history.push("/");
                 dispatch(alertActions.failure(error.message));
             });
     }
@@ -70,9 +75,11 @@ function update(id, number, position, formationNumber){
         playerServices.update(id, number, position, formationNumber)
             .then((result) => {
                 dispatch(success());
+                history.push("/players");
                 dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                history.push("/");
                 dispatch(alertActions.failure(error.message));
             });
     }
@@ -91,6 +98,7 @@ function deleteP(id){
                 dispatch(alertActions.success(result.message));
             }, (error) => {
                 dispatch(failure());
+                history.push("/");
                 dispatch(alertActions.failure(error.message));
             });
     }

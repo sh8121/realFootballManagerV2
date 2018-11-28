@@ -1,4 +1,5 @@
 import config from "../config";
+import { authHeader } from "../helpers/auth-header";
 
 export const playerServices = {
     create,
@@ -11,7 +12,7 @@ export const playerServices = {
 function create(name, number, position){
     const requestOptions = {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: authHeader(),
         body: JSON.stringify({name, number, position})
     };
 
@@ -22,7 +23,7 @@ function create(name, number, position){
 function findOneById(id){
     const requestOptions = {
         method: "GET",
-        headers: {"Content-Type": "application/json"}
+        headers: authHeader()
     };
 
     return fetch(`${config.apiUrl}/api/players/${id}`, requestOptions)
@@ -32,7 +33,7 @@ function findOneById(id){
 function findByTeam(){
     const requestOptions = {
         method: "GET",
-        headers: {"Content-Type": "application/json"}
+        headers: authHeader()
     };
 
     return fetch(`${config.apiUrl}/api/players`, requestOptions)
@@ -53,7 +54,7 @@ function update(id, number, position, formationNumber){
 function deleteP(id){
     const requestOptions = {
         method: "DELETE",
-        headers: {"Content-Type": "application/json"}
+        headers: authHeader()
     }
 
     return fetch(`${config.apiUrl}/api/players/${id}`, requestOptions)
