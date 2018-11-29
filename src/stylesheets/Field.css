@@ -1,0 +1,259 @@
+body {
+    font-family: Roboto;
+}
+
+.field {
+    top: 10vh;
+    left: 5%;
+    width: 90%;
+    height: 90vh;
+    background: url(http://localhost:3000/soccer_field.jpg);
+    background-size: 30%;
+    position: absolute;
+}
+.field .field__box {
+    width: 90%;
+    height: 90%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    margin: 20px auto;
+    position: relative;
+}
+.field .field__box .field__line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+}
+.field .field__box .field__line--goal--top {
+    width: 15%;
+    height: 5%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-top: none;
+    left: 42.5%;
+}
+.field .field__box .field__line--goal--bottom {
+    bottom: 0;
+    width: 15%;
+    height: 5%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-bottom: none;
+    margin: 0 42.5%;
+}
+.field .field__box .field__line--penalty--top {
+    width: 35%;
+    height: 10%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-top: none;
+    margin: 0 32.5%;
+}
+.field .field__box .field__line--penalty--bottom {
+    bottom: 0;
+    width: 35%;
+    height: 10%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-bottom: none;
+    margin: 0 32.5%;
+}
+.field .field__box .field__line--penalty--arc--top {
+    top: 0;
+    width: 25%;
+    height: 12%;
+    border-radius: 0 0 60% 60%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    margin: 0 37.5%;
+}
+.field .field__box .field__line--penalty--arc--bottom {
+    bottom: 0;
+    width: 25%;
+    height: 12%;
+    border-radius: 60% 60% 0 0;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    margin: 0 37.5%;
+}
+.field .field__box .field__line--penalty--arc {
+    top: 0;
+    width: 25%;
+    height: 12%;
+    border-radius: 0 0 60% 60%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    margin: 0 37.5%;
+}
+.field .field__box .field__line--mid {
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.field .field__box .field__line--circle {
+    top: 44%;
+    width: 20%;
+    height: 12%;
+    margin: auto;
+    border-radius: 70%;
+    border: solid 2px rgba(255, 255, 255, 0.8);
+    left: 40%;
+}
+.field .field__box .player {
+    position: absolute;
+}
+.field .field__box .player__item {
+    width: 9%;
+    height: 7%;
+    background-color: #155117;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 30px #000000;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.field .field__box .player__item--shirt {
+    bottom: 25%;
+    font-size: 1em;
+    text-align: center;
+    color: #ffffff;
+}
+.field .field__box .player__item--label {
+    font-size: 0.7em;
+    top: 75%;
+    position: absolute;
+    background-color: #ffffff;
+    color: #155117;
+    border-radius: 10%;
+    padding: 5%;
+}
+.field .field__box .player__item--card {
+    position: absolute;
+    top: -200%;
+    background-color: #ffffff;
+    font-size: 0.7em;
+    color: #155117;
+    border-radius: 3%;
+    box-shadow: 0 0 30px #000000;
+    z-index: 2;
+    display: none;
+    flex-flow: column;
+    /*&:after
+     * content: ""
+     * display: inline-block
+     * //vertical-align: middle
+     * width: 0
+     * height: 0
+     * border-left: 10px solid transparent
+     * border-top: 10px solid blue
+     * border-right: 10px solid transparent */
+}
+.field .field__box .player__item--card:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 40%;
+    background-color: #155117;
+    z-index: -1;
+}
+.field .field__box .player__item--card--name {
+    color: #ffffff;
+}
+.field .field__box .player__item--card--photo {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.field .field__box .player__item--card--photo-bg {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+.field .field__box .player__item--card--info {
+    display: flex;
+}
+.field .field__box .player__item--card--info--column {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+}
+.field .field__box .player__item--gk {
+    bottom: 1%;
+    left: 45%;
+}
+.field .field__box .player__item--right--fullback {
+    bottom: 25%;
+    right: 5%;
+}
+.field .field__box .player__item--right--wingback {
+    bottom: 35%;
+    right: 5%;
+}
+.field .field__box .player__item--right--centerback {
+    bottom: 15%;
+    right: 25%;
+}
+.field .field__box .player__item--center--centerback {
+    bottom: 15%;
+    left: 45%;
+}
+.field .field__box .player__item--left--centerback {
+    bottom: 15%;
+    left: 25%;
+}
+.field .field__box .player__item--left--fullback {
+    bottom: 25%;
+    left: 5%;
+}
+.field .field__box .player__item--left--wingback {
+    bottom: 35%;
+    left: 5%;
+}
+.field .field__box .player__item--right--center--midfielder {
+    bottom: 42%;
+    right: 30%;
+}
+.field .field__box .player__item--center--midfielder {
+    bottom: 42%;
+    right: 45%;
+}
+.field .field__box .player__item--left--center--midfielder {
+    bottom: 42%;
+    left: 30%;
+}
+.field .field__box .player__item--center--attacking--midfielder {
+    top: 30%;
+    left: 45%;
+}
+.field .field__box .player__item--right--wing--forward {
+    top: 15%;
+    right: 5%;
+}
+.field .field__box .player__item--left--wing--forward {
+    top: 15%;
+    left: 5%;
+}
+.field .field__box .player__item--center--forward {
+    top: 8%;
+    left: 45%;
+}
+
+/*@media screen and (max-width: 992px) {*/
+    /*.field {*/
+        /*top: 10vh;*/
+        /*left: 20vw;*/
+        /*width: 60vw;*/
+        /*height: 90vh;*/
+    /*}*/
+/*}*/

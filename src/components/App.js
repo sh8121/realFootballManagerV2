@@ -9,6 +9,7 @@ import { HomePage } from "./home/HomePage";
 import { LoginPage } from "./login/LoginPage";
 import { RegisterPage } from "./register/RegisterPage";
 import { PlayerRoute } from "./player/PlayerRoute";
+import { MatchBoardPage } from "./match/MatchBoardPage";
 
 class App extends Component {
     constructor(props){
@@ -36,6 +37,7 @@ class App extends Component {
                                 <Route path="/login" component={LoginPage}/>
                                 <Route path="/register" component={RegisterPage}/>
                                 <Route path="/players" component={PlayerRoute}/>
+                                <Route path="/matches" component={MatchBoardPage}/>
                             </div>
                         </Router>
                     </div>

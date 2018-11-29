@@ -10,6 +10,7 @@ const api = require("./routes/api");
 
 const app = express();
 
+app.use(express.static(__dirname + "/../images"));
 app.use(bearerToken());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

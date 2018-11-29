@@ -22,7 +22,12 @@ class HomePage extends Component{
                         <Link to="/players" className="btn btn-primary btn-block">Players</Link>
                     </div>
                 </div>
-                <div className="row justify-content-center">
+                <div className="row justify-content-center" style={{"margin-top":"10px"}}>
+                    <div className="col-6">
+                        <Link to="/matches" className="btn btn-primary btn-block">Matches</Link>
+                    </div>
+                </div>
+                <div className="row justify-content-center" style={{"margin-top":"10px"}}>
                     <div className="col-6">
                         <Link to="/login" className="btn btn-link btn-block">Logout</Link>
                     </div>
