@@ -2,8 +2,12 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {Field} from "./field/Field";
+import {RecordModal} from "./field/RecordModal";
 
 import {playerServices} from "../../services";
+
+const $ = require("jquery")(window);
+
 
 class MatchBoardPage extends Component{
     constructor(props){
@@ -11,6 +15,7 @@ class MatchBoardPage extends Component{
 
         this.state = {
             players: {},
+            activeFormationNumber: -1,
             matchRecord: {
                 competitorName: "",
                 teamScore: 0,
@@ -21,7 +26,46 @@ class MatchBoardPage extends Component{
                 yellowCard: 0,
                 redCard: 0
             }
-        }
+        };
+
+        //this.recordModal = React.createRef();
+
+        this.handleActivate = this.handleActivate.bind(this);
+        this.handleDeactivate = this.handleDeactivate.bind(this);
+        this.handleRecord = this.handleRecord.bind(this);
+        this.handlePlayerChange = this.handlePlayerChange.bind(this);
+    }
+
+    handleActivate(formationNumber){
+        this.setState({
+            activeFormationNumber: formationNumber
+        });
+        $("#recordModal").modal("show");
+    }
+
+    handleDeactivate(){
+        this.setState({
+            activeFormationNumber: -1
+        });
+        $("#recordModal").modal("hide");
+    }
+
+    handleRecord(recordType){
+        const {players, activeFormationNumber} = this.state;
+        players[activeFormationNumber][recordType]++;
+        this.setState({
+            players
+        });
+    }
+
+    handlePlayerChange(formationNumber){
+        const {players, activeFormationNumber } = this.state;
+        let beforeActivePlayer = players[activeFormationNumber];
+        players[activeFormationNumber] = players[formationNumber]
+        players[formationNumber] = beforeActivePlayer;
+        this.setState({
+            players
+        });
     }
 
     componentDidMount(){
@@ -52,11 +96,16 @@ class MatchBoardPage extends Component{
     }
 
     render(){
+        const {players} = this.state;
+
         return(
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <Field players={this.state.players}/>
+            <div>
+                <RecordModal ref={this.recordModal} onDeactivate={this.handleDeactivate} onRecord={this.handleRecord} onPlayerChange={this.handlePlayerChange}/>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <Field players={players} onActivate={this.handleActivate}/>
+                        </div>
                     </div>
                 </div>
             </div>
