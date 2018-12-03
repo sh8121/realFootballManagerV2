@@ -20,7 +20,29 @@ class PlayerInMatch{
                     return reject(err);
                 return resolve(result);
             });
-        })
+        });
+    }
+
+    static findByMatchId(matchId){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * from playerInMatch WHERE matchId = ?";
+            connection.query(sql, [matchId], (err, result) => {
+                if(err)
+                    return reject(err);
+                return resolve(result);
+            });
+        });
+    }
+
+    static findByPlayerId(playerId){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * from playerInMatch WHERE playerId = ?";
+            connection.query(sql, [playerId], (err, result) => {
+                if(err)
+                    return reject(err);
+                return resolve(result);
+            });
+        }); 
     }
 }
 

@@ -1,4 +1,5 @@
 const Player = require("../../../models/player");
+const PlayerInMatch = require("../../../models/playerInMatch");
 
 module.exports.createPlayer = (req, res) => {
     const {name, number, position} = req.body;
@@ -64,6 +65,26 @@ module.exports.findPlayerByTeam = (req, res) => {
     }
 
     Player.findByTeam(teamId)
+        .then(respond, onError);
+}
+
+module.exports.findMatchByPlayer = (req, res) => {
+    const {id} = req.params;
+
+    const respond = (matches) => {
+        res.json({
+           message: "Find Successfully",
+           matches 
+        });
+    }
+
+    const onError = (error) => {
+        res.status(409).json({
+            message: error.message
+        });
+    }
+
+    PlayerInMatch.findByPlayerId(id)
         .then(respond, onError);
 }
 

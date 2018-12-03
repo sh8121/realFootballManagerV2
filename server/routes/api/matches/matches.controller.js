@@ -75,3 +75,23 @@ module.exports.findMatchByTeam = (req, res) => {
     Match.findByTeam(teamId)
         .then(respond, onError);
 }
+
+module.exports.findPlayerByMatch = (req, res) => {
+    const {id} = req.params;
+
+    const respond = (players) => {
+        res.json({
+            message: "Find Successfully",
+            players
+        });
+    }
+
+    const onError = (error) => {
+        res.status(409).json({
+            message: error.message
+        });
+    }
+
+    PlayerInMatch.findByMatchId(id)
+        .then(respond, onError);
+}

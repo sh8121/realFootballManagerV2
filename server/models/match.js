@@ -13,7 +13,18 @@ class Match{
     }
 
     static findOneById(id){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * from matches WHERE id=?";
+            connection.query(sql, [id], (err, result) => {
+                if(err)
+                    return reject(err);
 
+                if(!result || result.length == 0)
+                    return reject(new Error("Match doesn't exist"));
+
+                return resolve(result);
+            });
+        });      
     }
 
     static findByTeam(teamId){
