@@ -1,0 +1,19 @@
+export const matchConstants = {
+    CREATE: {
+        REQUEST: "MATCH_CREATE_REQUEST",
+        SUCCESS: "MATCH_CREATE_SUCCESS",
+        FAILURE: "MATCH_CREATE_FAILURE"
+    },
+    PLAYERS: {
+        CREATE: {
+            REQUEST: "MATCH_PLAYERS_CREATE_REQUEST",
+            SUCCESS: "MATCH_PLAYERS_CREATE_SUCCESS",
+            FAILURE: "MATCH_PLAYERS_CREATE_FAILURE"
+        }
+    },
+    FIND_BY_TEAM: {
+        REQUEST: "MATCH_FIND_BY_TEAM_REQUEST",
+        SUCCESS: "MATCH_FIND_BY_TEAM_SUCCESS",
+        FAILURE: "MATCH_FIND_BY_TEAM_FAILURE"
+    }
+};

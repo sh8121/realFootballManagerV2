@@ -3,13 +3,12 @@ import {Router, Route} from "react-router-dom";
 import { connect } from "react-redux";
 import { history } from "../helpers/history";
 
-import "../stylesheets/bootstrap/css/bootstrap.min.css";
 import {PrivateRoute} from "./common/PrivateRoute";
 import { HomePage } from "./home/HomePage";
 import { LoginPage } from "./login/LoginPage";
 import { RegisterPage } from "./register/RegisterPage";
 import { PlayerRoute } from "./player/PlayerRoute";
-import { MatchBoardPage } from "./match/MatchBoardPage";
+import { MatchRoute} from "./match/MatchRoute";
 
 class App extends Component {
     constructor(props){
@@ -37,7 +36,7 @@ class App extends Component {
                                 <Route path="/login" component={LoginPage}/>
                                 <Route path="/register" component={RegisterPage}/>
                                 <Route path="/players" component={PlayerRoute}/>
-                                <Route path="/matches" component={MatchBoardPage}/>
+                                <Route path="/matches" component={MatchRoute}/>
                             </div>
                         </Router>
                     </div>
