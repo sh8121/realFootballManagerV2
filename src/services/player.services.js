@@ -5,6 +5,7 @@ export const playerServices = {
     create,
     findOneById,
     findByTeam,
+    findMatchByPlayer,
     update,
     deleteP
 };
@@ -37,6 +38,16 @@ function findByTeam(){
     };
 
     return fetch(`${config.apiUrl}/api/players`, requestOptions)
+        .then(handleResponse);
+}
+
+function findMatchByPlayer(id){
+    const requestOptions = {
+        method: "GET",
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/api/players/${id}/matches`, requestOptions)
         .then(handleResponse);
 }
 

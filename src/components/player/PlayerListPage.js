@@ -4,21 +4,46 @@ import {Link} from "react-router-dom";
 
 import {playerActions} from "../../actions";
 
+import {PlayerMatchRecordModal} from "../match/modal/PlayerMatchRecordModal";
+
+const $ = window.$;
+
 class PlayerListPage extends Component{
     constructor(props){
         super(props);
+
+        this.state = {
+            activePlayer: undefined
+        };
+
+        this.handlePlayerActivate = this.handlePlayerActivate.bind(this);
+    }
+
+    handlePlayerActivate(player){
+        this.setState({
+            activePlayer: player
+        });
+        $("#playerMatchRecordModalLabel").modal("show");        
     }
 
     componentDidMount(){
         const {dispatch} = this.props;
+        const that = this;
         dispatch(playerActions.findByTeam());
+        $("#playerMatchRecordModalLabel").on("hide.bs.modal", () => {
+            that.setState({
+                activePlayer: undefined
+            });
+        });
     }
 
     render(){
         const { finding, players } = this.props;
+        const {activePlayer} = this.state;
 
         return(
             <div>
+                <PlayerMatchRecordModal player={activePlayer}/>
                 <table className="table">
                     <thead>
                         <tr>
@@ -32,7 +57,7 @@ class PlayerListPage extends Component{
                     {finding &&
                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
                     {players && players.length > 0 && players.map((player, index) => (
-                        <tr>
+                        <tr onClick={() => {this.handlePlayerActivate(player);}}>
                             <th scope="row">{index + 1}</th>
                             <td>{player.name}</td>
                             <td>{player.number}</td>
