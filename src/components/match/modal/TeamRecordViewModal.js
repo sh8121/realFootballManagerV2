@@ -27,7 +27,16 @@ class TeamRecordViewModal extends Component{
                         </div>
                         <div className="modal-body">
                             <div className="container-fluid">
+                            {matchRecord &&
                                 <Fragment>
+                                    {(matchRecord.goal && matchRecord.competitorGoal) ?
+                                    <div className="row justify-content-center">
+                                        <div className="col-6">
+                                            <h2 className="block" style={{"text-align":"center"}}>{matchRecord.goal} - {matchRecord.competitorGoal}</h2>
+                                        </div>
+                                    </div> :
+                                    null                                
+                                    }                                
                                     <div className="row justify-content-center">
                                         <div className="col-8">
                                             <button type="button" className="btn btn-outline-primary btn-block">Goal({matchRecord.goal})</button>
@@ -64,6 +73,7 @@ class TeamRecordViewModal extends Component{
                                         </div>
                                     </div>
                                 </Fragment>
+                            }                                
                             </div>
                         </div>
                     </div>

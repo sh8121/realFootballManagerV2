@@ -20,7 +20,7 @@ class Match{
                     return reject(err);
 
                 if(!result || result.length == 0)
-                    return reject(new Error("Match doesn't exist"));
+                    return resolve(null);
 
                 return resolve(result);
             });

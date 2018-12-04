@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {Field} from "./field/Field";
-import {RecordModal} from "./field/RecordModal";
-import {TeamRecordViewModal} from "./field/TeamRecordViewModal";
-import {SaveModal} from "./field/SaveModal";
+import {RecordModal} from "./modal/RecordModal";
+import {TeamRecordViewModal} from "./modal/TeamRecordViewModal";
+import {SaveModal} from "./modal/SaveModal";
 
 import {playerServices} from "../../services";
 import {matchActions} from "../../actions/match.actions";

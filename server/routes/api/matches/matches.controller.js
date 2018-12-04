@@ -76,6 +76,33 @@ module.exports.findMatchByTeam = (req, res) => {
         .then(respond, onError);
 }
 
+module.exports.findMatchById = (req, res) => {
+    const {id} = req.params;
+
+    const respond = (match) => {
+        if(!match){
+            res.status(409).json({
+                message: "Match does not exist"
+            });
+        }
+        else{
+            res.json({
+                message: "Find Successfully",
+                match
+            });
+        }
+    }
+
+    const onError = (error) => {
+        res.status(409).json({
+            message: error.message
+        });
+    }
+
+    Match.findOneById(id)
+        .then(respond, onError);
+}
+
 module.exports.findPlayerByMatch = (req, res) => {
     const {id} = req.params;
 
