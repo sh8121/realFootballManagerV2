@@ -90,7 +90,7 @@ module.exports.findMatchByPlayer = (req, res) => {
 
 module.exports.updatePlayer = (req, res) => {
     const { id } = req.params;
-    const { number, position, formationNumber } = req.body;
+    const { number, position } = req.body;
 
     const respond = () => {
         res.json({
@@ -104,7 +104,7 @@ module.exports.updatePlayer = (req, res) => {
         });
     }
 
-    Player.update(id, number, position, formationNumber)
+    Player.update(id, number, position)
         .then(respond, onError);
 }
 

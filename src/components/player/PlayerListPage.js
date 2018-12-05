@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 import {playerActions} from "../../actions";
 
-import {PlayerMatchRecordModal} from "../match/modal/PlayerMatchRecordModal";
+import {PlayerMatchRecordModal} from "./modal/PlayerMatchRecordModal";
 
 const $ = window.$;
 
@@ -23,14 +23,14 @@ class PlayerListPage extends Component{
         this.setState({
             activePlayer: player
         });
-        $("#playerMatchRecordModalLabel").modal("show");        
+        $("#playerMatchRecordModal").modal("show");        
     }
 
     componentDidMount(){
         const {dispatch} = this.props;
         const that = this;
         dispatch(playerActions.findByTeam());
-        $("#playerMatchRecordModalLabel").on("hide.bs.modal", () => {
+        $("#playerMatchRecordModal").on("hide.bs.modal", () => {
             that.setState({
                 activePlayer: undefined
             });
@@ -44,7 +44,7 @@ class PlayerListPage extends Component{
         return(
             <div>
                 <PlayerMatchRecordModal player={activePlayer}/>
-                <table className="table">
+                <table className="table table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -62,6 +62,7 @@ class PlayerListPage extends Component{
                             <td>{player.name}</td>
                             <td>{player.number}</td>
                             <td>{player.position}</td>
+                            <td><Link to={`/players/update/${player.id}`} onClick={(e)=>{e.stopPropagation();}} className="btn btn-primary">Edit</Link></td>
                         </tr>
                     ))}
                     </tbody>

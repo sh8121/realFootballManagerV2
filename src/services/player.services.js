@@ -51,11 +51,11 @@ function findMatchByPlayer(id){
         .then(handleResponse);
 }
 
-function update(id, number, position, formationNumber){
+function update(id, number, position){
     const requestOptions = {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({number, position, formationNumber})
+        headers: authHeader(),
+        body: JSON.stringify({number, position})
     };
 
     return fetch(`${config.apiUrl}/api/players/${id}`, requestOptions)

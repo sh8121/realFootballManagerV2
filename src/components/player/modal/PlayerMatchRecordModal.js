@@ -39,8 +39,9 @@ class PlayerMatchRecordModal extends Component{
         this.refresh();
     }
 
-    componentDidUpdate(){
-        this.refresh();
+    componentDidUpdate(prevProps){                
+        if(prevProps.player !== this.props.player)
+            this.refresh();
     }
 
     render(){
@@ -52,7 +53,9 @@ class PlayerMatchRecordModal extends Component{
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
+                            {player &&
                             <h5 className="modal-title" id="playerMatchRecordModalLabel">{player.name}'s Record</h5>
+                            }                        
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

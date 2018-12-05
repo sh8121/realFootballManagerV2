@@ -9,10 +9,18 @@ import { LoginPage } from "./login/LoginPage";
 import { RegisterPage } from "./register/RegisterPage";
 import { PlayerRoute } from "./player/PlayerRoute";
 import { MatchRoute} from "./match/MatchRoute";
+import { alertActions } from "../actions";
 
 class App extends Component {
     constructor(props){
         super(props);
+
+        const {dispatch} = this.props;
+        history.listen((location, action) => {
+            window.setTimeout(() => {
+                dispatch(alertActions.clear());
+            }, 3000);    
+        });
     }
 
     render(){

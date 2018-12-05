@@ -36,10 +36,10 @@ class Player{
         });
     }
 
-    static update(id, number, position, formationNumber){
+    static update(id, number, position){
         return new Promise((resolve, reject) => {
-            const sql = "UPDATE players SET number=?, position=?, formationNumber=? WHERE id=?";
-            connection.query(sql, [number, position, formationNumber, id], (err, result) => {
+            const sql = "UPDATE players SET number=?, position=? WHERE id=?";
+            connection.query(sql, [number, position, id], (err, result) => {
                 if(err)
                     return reject(err);
                 return resolve(result);

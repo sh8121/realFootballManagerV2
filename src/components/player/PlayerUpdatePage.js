@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import {playerServices} from "../../services";
+import {alertActions} from "../../actions";
+import {history} from "../../helpers/history";
 
-import { playerActions } from "../../actions";
-
-class PlayerCreatePage extends Component{
+class PlayerUpdatePage extends Component{
     constructor(props){
         super(props);
 
@@ -12,8 +13,8 @@ class PlayerCreatePage extends Component{
             name: "",
             number: -1,
             position: "",
-            submitted: false
-        };
+            submitted: false 
+        }
 
         this.numberOptionArr = [];
         for(let i = 1; i <= 99; i++)
@@ -24,7 +25,7 @@ class PlayerCreatePage extends Component{
     }
 
     handleChange(e){
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         this.setState({
             [name]: value
         });
@@ -34,27 +35,52 @@ class PlayerCreatePage extends Component{
         e.preventDefault();
         this.setState({
             submitted: true
-        });
-
-        const { name, number, position } = this.state;
-        const { dispatch } = this.props;
-
+        });        
+        const {dispatch} = this.props;
+        const {id} = this.props.match.params;
+        const {name, number, position} = this.state;
         if(name && (number !== -1) && position){
-            dispatch(playerActions.create(name, number, position));
+           playerServices.update(id, number, position)
+           .then((result) => {
+                history.push("/players");
+                dispatch(alertActions.success(result.message));
+           })
+           .catch((error) => {
+                history.push("/");
+                dispatch(alertActions.failure(error.message));
+           })
         }
+    }
+
+    componentDidMount(){
+        const {dispatch} = this.props;
+        const {id} = this.props.match.params; 
+        playerServices.findOneById(id)
+        .then((result) => {
+            const {name, number, position} = result.player;
+            this.setState({
+                name,
+                number,
+                position
+            });
+            dispatch(alertActions.success(result.message));
+        })
+        .catch((error) => {
+            history.push("/");
+            dispatch(alertActions.failure(error.message));
+        });
     }
 
     render(){
         const { name, number, position, submitted } = this.state;
-        const { creating } = this.props;
 
         return(
             <div>
-                <h2>Create Player</h2>
+                <h2>Update Player</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
-                        <input type="text" name="name" className="form-control" value={name} onChange={this.handleChange}/>
+                        <input type="text" name="name" className="form-control" value={name} readOnly/>
                         {submitted && !name &&
                         <small className="form-text">Name is required</small>}
                     </div>
@@ -81,9 +107,7 @@ class PlayerCreatePage extends Component{
                         <small className="form-text">Position is required</small>}
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="btn btn-primary">Create</button>
-                        {creating &&
-                        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
+                        <button type="submit" className="btn btn-primary">Update</button>                        
                         <Link to="/players" className="btn btn-link">Cancel</Link>
                     </div>
                 </form>
@@ -92,13 +116,6 @@ class PlayerCreatePage extends Component{
     }
 }
 
-function mapStateToProps(state){
-    const { creating } = state.player.creation;
-    return {
-        creating
-    };
-}
+PlayerUpdatePage = connect()(PlayerUpdatePage);
 
-PlayerCreatePage = connect(mapStateToProps)(PlayerCreatePage);
-
-export { PlayerCreatePage };
+export {PlayerUpdatePage};

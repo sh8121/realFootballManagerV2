@@ -69,10 +69,10 @@ function findByTeam(){
     function failure(){return {type:playerConstants.FIND_BY_TEAM.FAILURE};}
 }
 
-function update(id, number, position, formationNumber){
+function update(id, number, position){
     return (dispatch) => {
         dispatch(request());
-        playerServices.update(id, number, position, formationNumber)
+        playerServices.update(id, number, position)
             .then((result) => {
                 dispatch(success());
                 history.push("/players");
